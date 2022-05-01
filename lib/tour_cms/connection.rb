@@ -90,7 +90,7 @@ module TourCMS
       headers = {"Content-type" => "text/xml", "charset" => "utf-8", "Date" => req_time.strftime("%a, %d %b %Y %H:%M:%S GMT"),
         "Authorization" => "TourCMS #{channel}:#{@marketp_id}:#{signature}" }
 
-      response = open(url, headers).read
+      response = URI.open(url, headers).read
       @result_type == "raw" ? response : Hash.from_xml(response)["response"]
     end
   end
