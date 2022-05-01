@@ -4,12 +4,12 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "tour_cms"
+  s.name = "tour_cms_api"
   s.version = "1.0.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Luis Pimenta"]
-  s.date = %q{2022-04-30}
+  s.date = %q{2022-05-01}
   s.description = %q{A simple Ruby wrapper for interacting with the TourCMS API}
   s.email = %q{email@luispimenta.me}
   s.extra_rdoc_files = [
@@ -24,7 +24,7 @@ Gem::Specification.new do |s|
     "Rakefile",
     "VERSION",
     "lib/tour_cms/connection.rb",
-    "lib/tour_cms.rb",
+    "lib/tour_cms_api.rb",
     "test/helper.rb",
     "test/test_tourcms.rb",
     "tour_cms.gemspec"
