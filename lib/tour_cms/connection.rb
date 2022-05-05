@@ -6,6 +6,7 @@ module TourCMS
       @private_key = private_key
       @result_type = result_type
       @base_url = "https://api.tourcms.com"
+      @body = ''
     end
 
     def api_rate_limit_status(channel = 0)
@@ -72,6 +73,20 @@ module TourCMS
       request("/c/tour/datesprices/freesale/show.xml", channel, {"id" => tour})
     end
 
+    def check_tour_availability(params, channel)
+      request("/c/tour/datesprices/checkavail.xml", channel, params)
+    end
+
+    def booking_start_new(body = '', channel)
+      @body = body
+      request("/c/booking/new/start.xml", channel, {}, "POST")
+    end
+
+    def booking_commit_new(body = '', channel)
+      @body = body
+      request("/c/booking/new/commit.xml", channel, {}, "POST")
+    end
+
     private
 
     def generate_signature(path, verb, channel, outbound_time)
@@ -83,15 +98,32 @@ module TourCMS
     end
 
     def request(path, channel = 0, params = {}, verb = "GET")
-      url = @base_url + path + "?#{params.to_query}"
+      url = URI(@base_url + path + "?#{params.to_query}")
+
       req_time = Time.now.utc
       signature = generate_signature(path + "?#{params.to_query}", verb, channel, req_time.to_i)
 
-      headers = {"Content-type" => "text/xml", "charset" => "utf-8", "Date" => req_time.strftime("%a, %d %b %Y %H:%M:%S GMT"),
-        "Authorization" => "TourCMS #{channel}:#{@marketp_id}:#{signature}" }
+      https = Net::HTTP.new(url.host, url.port)
+      https.use_ssl = true
 
-      response = URI.open(url, headers).read
-      @result_type == "raw" ? response : Hash.from_xml(response)["response"]
+      if verb == 'GET'
+        request = Net::HTTP::Get.new(url)
+      else
+        request = Net::HTTP::Post.new(url)
+      end
+
+      request["Content-type"] = "text/xml"
+      request["charset"] = "utf-8"
+      request["Date"] = req_time.strftime("%a, %d %b %Y %H:%M:%S GMT")
+      request["Authorization"] = "TourCMS #{channel}:#{@marketp_id}:#{signature}"
+
+      if @body != ''
+        request.body = @body
+      end
+
+      response = https.request(request)
+
+      @result_type == "raw" ? response : Hash.from_xml(response.read_body)["response"]
     end
   end
 end

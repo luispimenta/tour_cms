@@ -4,7 +4,7 @@ A simple wrapper for connecting to [TourCMS Marketplace API](http://www.tourcms.
 
 ## Install
 
-	gem install tour_cms
+	gem install tour_cms_api
 
 ## Usage
 
@@ -57,6 +57,7 @@ Your Marketplace ID and Private Key can be found in the TourCMS Partner Portal. 
 	obj['tour'].first['tour_name']
 	=> "Canyoning"
 
+
 ### Passing parameters
 
 Many TourCMS methods accept parameters. Most methods take a hash of parameters like so:
@@ -76,6 +77,9 @@ Many TourCMS methods accept parameters. Most methods take a hash of parameters l
 *	show\_tour
 *	show\_tour\_departures
 *	show\_tour\_freesale
+*	check\_tour\_availability
+*	booking\_start\_new
+*	booking\_commit\_new
 
 ## Dependencies
 

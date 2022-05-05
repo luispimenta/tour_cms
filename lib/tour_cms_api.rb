@@ -8,5 +8,7 @@ require 'base64'
 require 'cgi'
 require 'open-uri'
 require 'rubygems'
+require "uri"
+require "net/http"
 
 require 'tour_cms/connection'
