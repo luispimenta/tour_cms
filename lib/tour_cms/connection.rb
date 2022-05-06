@@ -87,6 +87,20 @@ module TourCMS
       request("/c/booking/new/commit.xml", channel, {}, "POST")
     end
 
+    def booking_show(params, channel)
+      request("/c/booking/show.xml", channel, params)
+    end
+
+    def booking_cancel(body = '', channel)
+      @body = body
+      request("/c/booking/cancel.xml", channel, {}, "POST")
+    end
+
+    def booking_send_email(body = '', channel)
+      @body = body
+      request("/c/booking/email/send.xml", channel, {}, "POST")
+    end
+
     private
 
     def generate_signature(path, verb, channel, outbound_time)

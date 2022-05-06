@@ -80,6 +80,9 @@ Many TourCMS methods accept parameters. Most methods take a hash of parameters l
 *	check\_tour\_availability
 *	booking\_start\_new
 *	booking\_commit\_new
+* booking\_show
+* booking\_cancel
+* booking\_send\_email
 
 ## Dependencies
 
