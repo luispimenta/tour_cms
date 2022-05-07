@@ -65,8 +65,8 @@ module TourCMS
       request("/c/tour/show.xml", channel, {"id" => tour})
     end
 
-    def show_tour_departures(tour, channel)
-      request("/c/tour/datesprices/dep/show.xml", channel, {"id" => tour})
+    def show_tour_departures(params, channel)
+      request("/c/tour/datesprices/dep/show.xml", channel, params)
     end
 
     def show_tour_freesale(tour, channel)
